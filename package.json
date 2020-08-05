@@ -65,6 +65,7 @@
   },
   "scripts": {
     "start": "node scripts/start.js",
+    "build-windows": "set INLINE_RUNTIME_CHUNK=false && node scripts/build.js",
     "build": "export INLINE_RUNTIME_CHUNK=false && node scripts/build.js",
     "test": "node scripts/test.js"
   },

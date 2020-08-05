@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {PluralsightPath, PluralsightURL} from "./request/request";
-import {Spin} from "antd";
+import {PluralsightPath, PluralsightURL, onRequest} from "./request/request";
+import {Button, Spin} from "antd";
 import Unlogin from "./page/unlogin";
 import Summary from "./page/summary";
 import axios from "axios";
@@ -19,7 +19,7 @@ function App() {
         const checkLogin = async () => {
             let data;
             try {
-                await axios(PluralsightURL + PluralsightPath.loginCheck);
+                await onRequest(PluralsightPath.loginCheck);
                 data = AppType.HasLogin;
             } catch (_) {
                 data = AppType.NotLogin;
@@ -40,7 +40,9 @@ function App() {
             <div style={{
                 width: 500,
                 height: 300,
-            }}>{page}</div>
+            }}>
+                {page}
+            </div>
         </Spin>
     );
 }
