@@ -17,21 +17,15 @@
   "page_action": {},
   "content_scripts": [
     {
-      "matches": ["https://app.pluralsight.com/score/skill-assessment/*/summary-review"],
-      "js": ["js/summary/summary_review.js"],
-      "run_at": "document_end"
+      "matches": ["https://app.pluralsight.com/*"],
+      "js": ["js/base/base.js"]
     },
     {
       "matches": ["https://app.pluralsight.com/score/skill-assessment/*?*"],
       "js": ["js/jquery-1.9.1.min.js","js/intro/intro.js"]
-    },
-    {
-      "matches": ["https://app.pluralsight.com/roleiq/roles/*"],
-      "js": ["js/jquery-1.9.1.min.js", "js/role/role.js"]
     }
   ],
   "web_accessible_resources": [
-    "js/jquery-1.9.1.min.js",
-    "js/summary/summary_popup.html"
+    "js/jquery-1.9.1.min.js"
   ]
 }

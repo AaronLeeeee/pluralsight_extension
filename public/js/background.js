@@ -4,13 +4,11 @@
 
 let baseURL = "http://www.wdtechnology.club:10000/";
 
-let callBackMap = {};
-
 let functionKeyMap = {
-    onSummaryDataShow,
     onSummaryDataSend,
     onIntroDataNeedRequest,
-    onRoleDataNeedShow
+    onPopupNeedShow,
+    onPopupNeedHide
 };
 
 chrome.extension.onRequest.addListener(
@@ -20,20 +18,16 @@ chrome.extension.onRequest.addListener(
         }
     });
 
-function onSummaryPopupDataClick() {
-    callBackMap["onSummaryDataShow"]();
-}
-
-function onSummaryDataShow(request, sender, sendResponse) {
-    let {tab: {id}} = sender;
-
+function onPopupNeedShow(_, {tab: {id}}) {
     chrome.pageAction.setPopup({
         tabId: id,
-        popup: "/js/summary/summary_popup.html"
+        popup: "/index.html"
     });
     chrome.pageAction.show(id);
+}
 
-    callBackMap["onSummaryDataShow"] = sendResponse;
+function onPopupNeedHide(_, {tab: {id}}) {
+    chrome.pageAction.hide(id);
 }
 
 async function onSummaryDataSend(request) {
@@ -62,12 +56,4 @@ async function onIntroDataNeedRequest({ question, type }, sender, sendResponse) 
         },
         method: "POST"
     }).then(response => response.json()));
-}
-
-function onRoleDataNeedShow({}, {tab: {id}}) {
-    chrome.pageAction.setPopup({
-        tabId: id,
-        popup: "/js/role/role_popup.html"
-    });
-    chrome.pageAction.show(id);
 }
