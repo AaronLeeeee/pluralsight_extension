@@ -1,10 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import './App.css';
-import {PluralsightPath, PluralsightURL, onRequest} from "./request/request";
-import {Button, Spin} from "antd";
+import {PluralsightPath, onRequestPluralsight} from "./request/request";
+import {Spin} from "antd";
 import Unlogin from "./page/unlogin";
 import Summary from "./page/summary";
-import axios from "axios";
+import {StoreKey, storeSave} from "./store";
 
 const AppType = {
     Loading: 0,
@@ -19,7 +19,10 @@ function App() {
         const checkLogin = async () => {
             let data;
             try {
-                await onRequest(PluralsightPath.loginCheck);
+                const { email } = await onRequestPluralsight(PluralsightPath.loginCheck);
+
+                storeSave(StoreKey.CurrentUser, email);
+
                 data = AppType.HasLogin;
             } catch (_) {
                 data = AppType.NotLogin;
@@ -38,8 +41,8 @@ function App() {
     return (
         <Spin size="large" spinning={appType === AppType.Loading}>
             <div style={{
-                width: 500,
-                height: 300,
+                minWidth: 500,
+                minHeight: 300,
             }}>
                 {page}
             </div>

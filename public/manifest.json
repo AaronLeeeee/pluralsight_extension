@@ -5,6 +5,7 @@
   "version": "1.0",
   "permissions": [
     "debugger",
+    "storage",
     "tabs",
     "https://app.pluralsight.com/*",
     "http://www.wdtechnology.club:10000/*",
