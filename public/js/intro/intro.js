@@ -6,6 +6,10 @@ function delHtmlTag(str) {
     return str.replace(/<(?:.|\s)*?>/g, "").replace(/[\r\n ]/g, "");
 }
 
+function getNeedCheck() {
+    return $(".textStem__1F3Jh").length > 0;
+}
+
 function getQuestion() {
     return $(".textStem__1F3Jh")[0].innerHTML;
 }
@@ -17,13 +21,9 @@ function getIsAnswering() {
 function checkNeedGetAnswer() {
     if (!getIsAnswering()) return false;
 
-    if (lastQuestion == getQuestion()) return false;
+    if (lastQuestion === getQuestion()) return false;
 
     return !tracking;
-}
-
-function supportPage() {
-    return getTitle().split("/").length === 1;
 }
 
 function getTitle() {
@@ -74,7 +74,9 @@ function markToData(answer, possibleIndex) {
     let finalIndex = -1;
 
     for (let i = 0; i < choices.length; i++) {
-        if (answerHtml == delHtmlTag(choices[i].innerHTML)) {
+        console.log(answerHtml, delHtmlTag(choices[i].innerHTML));
+        if (answerHtml === delHtmlTag(choices[i].innerHTML)) {
+            console.log("查找到了");
             finalIndex = i;
         }
     }
@@ -88,12 +90,15 @@ function markToData(answer, possibleIndex) {
     }
 }
 
-if (supportPage()) {
-    setInterval(() => {
-        if (checkNeedGetAnswer()) {
-            getAnswer().then();
-        } else {
-            console.log("不需要获取数据");
-        }
-    }, 3000);
-}
+$(() => {
+    if (getNeedCheck()) {
+        setInterval(() => {
+            console.log("执行了");
+            if (checkNeedGetAnswer()) {
+                getAnswer().then();
+            } else {
+                console.log("不需要获取数据");
+            }
+        }, 3000);
+    }
+});

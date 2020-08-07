@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
   "name": "Pluralsight Role IQ",
-  "description": "This extension demonstrates a browser action with kittens.",
+  "description": "帮助快速获取Pluralsight答案的拓展",
   "version": "1.0",
   "permissions": [
     "debugger",
@@ -22,7 +22,7 @@
       "js": ["js/base/base.js"]
     },
     {
-      "matches": ["https://app.pluralsight.com/score/skill-assessment/*?*"],
+      "matches": ["https://app.pluralsight.com/score/skill-assessment/*"],
       "js": ["js/jquery-1.9.1.min.js","js/intro/intro.js"]
     }
   ],
