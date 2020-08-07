@@ -102,6 +102,8 @@ export default function Action(props) {
                 }
                 setDoneJobs(alreadyDoneJob);
             }
+
+            setPercent(100);
             setWaitingJob(null);
         };
         uploading().then();

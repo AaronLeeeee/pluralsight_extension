@@ -91,14 +91,13 @@ function markToData(answer, possibleIndex) {
 }
 
 $(() => {
-    if (getNeedCheck()) {
-        setInterval(() => {
-            console.log("执行了");
+    setInterval(() => {
+        if (getNeedCheck()) {
             if (checkNeedGetAnswer()) {
                 getAnswer().then();
             } else {
                 console.log("不需要获取数据");
             }
-        }, 3000);
-    }
+        }
+    }, 3000);
 });
