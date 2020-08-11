@@ -2,10 +2,11 @@
   "manifest_version": 2,
   "name": "Pluralsight习题帮助插件",
   "description": "帮助快速获取Pluralsight答案的拓展",
-  "version": "1.0.1",
-  "icons":{"128":"128.png"},
+  "version": "1.0.2",
+  "icons": {
+    "128": "128.png"
+  },
   "permissions": [
-    "debugger",
     "storage",
     "tabs",
     "https://app.pluralsight.com/*",
@@ -14,17 +15,22 @@
   ],
   "offline_enabled": false,
   "background": {
-    "scripts": ["js/background.js"]
+    "scripts": [
+      "js/background.js"
+    ]
   },
-  "page_action": {},
+  "browser_action": {
+    "default_popup": "index.html"
+  },
   "content_scripts": [
     {
-      "matches": ["https://app.pluralsight.com/*"],
-      "js": ["js/base/base.js"]
-    },
-    {
-      "matches": ["https://app.pluralsight.com/score/skill-assessment/*"],
-      "js": ["js/jquery-1.9.1.min.js","js/intro/intro.js"]
+      "matches": [
+        "https://app.pluralsight.com/score/skill-assessment/*"
+      ],
+      "js": [
+        "js/jquery-1.9.1.min.js",
+        "js/intro/intro.js"
+      ]
     }
   ],
   "web_accessible_resources": [

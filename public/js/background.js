@@ -30,6 +30,10 @@ function requestData(input, init) {
     return fetch(baseURL + input, init);
 }
 
+function requestPuralsight(input, init) {
+    return fetch('https://app.pluralsight.com' + input, init);
+}
+
 async function onSummaryDataSend(request) {
     await fetch(baseURL + "question", {
         body: JSON.stringify({

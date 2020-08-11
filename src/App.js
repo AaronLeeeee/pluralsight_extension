@@ -19,7 +19,7 @@ function App() {
         const checkLogin = async () => {
             let data;
             try {
-                const { email } = await onRequestPluralsight(PluralsightPath.loginCheck);
+                const { email } = await onRequestPluralsight(PluralsightPath.loginCheck).then(response => response.json());
 
                 storeSave(StoreKey.CurrentUser, email);
 

@@ -42,7 +42,7 @@ function Summary() {
 
             console.log(currentUser);
 
-            const response = await onRequestPluralsight(`${PluralsightPath.skillMeasurements}${currentUser}`);
+            const response = await onRequestPluralsight(`${PluralsightPath.skillMeasurements}${currentUser}`).then(response => response.json());
 
             const localSave = storeGet(currentUser) || {};
 

@@ -46,7 +46,7 @@ export default function Action(props) {
                 try {
                     await (new Promise(resolve => setTimeout(() => resolve(), 500)));
                     // 获取 总习题数据
-                    const {data: {dataLength}} = await onRequestPluralsight(PluralsightPath.skill + url + "/summary-review/data");
+                    const {data: {dataLength}} = await onRequestPluralsight(PluralsightPath.skill + url + "/summary-review/data").then(response => response.json());
 
                     let items = [];
 
@@ -55,7 +55,7 @@ export default function Action(props) {
                     for (let j = 1; j < dataLength; j++) {
                         setWaitingJob(`${title} 习题总数据获取完成，共${dataLength}道题。开始获取第${j}题数据`);
 
-                        const {data: {assessment_item_id: questionId, answer_index: answerIndex, stem: question, stem_image_url: questionImageUrl, choices}} = await onRequestPluralsight(`${PluralsightPath.skill}${url}/summary-review/data/questions/${j}`);
+                        const {data: {assessment_item_id: questionId, answer_index: answerIndex, stem: question, stem_image_url: questionImageUrl, choices}} = await onRequestPluralsight(`${PluralsightPath.skill}${url}/summary-review/data/questions/${j}`).then(response => response.json());
 
                         items.push({
                             questionId,

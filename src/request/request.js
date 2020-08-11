@@ -11,17 +11,8 @@ export const BackendPath = {
 };
 
 export function onRequestPluralsight(input: RequestInfo, init?: RequestInit): Promise<Response> {
-    return new Promise((resolve, reject) => {
-        chrome.tabs.getSelected(null, function(tab) {
-            chrome.tabs.sendRequest(tab.id, {input, init}, ({success, error}) => {
-                if (success) {
-                    resolve(success);
-                } else {
-                    reject(error);
-                }
-            });
-        });
-    });
+    const bg = chrome.extension.getBackgroundPage();
+    return bg.requestPuralsight(input, init);
 }
 
 export function onRequestBackend(input: RequestInfo, init?: RequestInit): Promise<Response> {
