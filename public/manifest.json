@@ -25,7 +25,7 @@
   "content_scripts": [
     {
       "matches": [
-        "https://app.pluralsight.com/score/skill-assessment/*"
+        "https://app.pluralsight.com/skilliq/*"
       ],
       "js": [
         "js/jquery-1.9.1.min.js",

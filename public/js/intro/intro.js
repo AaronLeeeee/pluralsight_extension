@@ -1,5 +1,4 @@
 let tracking = false;
-let lastQuestion = "";
 
 //去掉所有的html标记
 function delHtmlTag(str) {
@@ -7,27 +6,27 @@ function delHtmlTag(str) {
 }
 
 function getNeedCheck() {
-    return $(".textStem__1F3Jh").length > 0;
+    let htmls = $(".questionDisplay__h7_A_");
+
+    return htmls.length > 0;
 }
 
 function getQuestion() {
-    return $(".textStem__1F3Jh")[0].innerHTML;
-}
-
-function getIsAnswering() {
-    return $('.textChoiceButton__138gl').length > 0
+    return $(".stem__4BNEW")[0].innerHTML;
 }
 
 function checkNeedGetAnswer() {
-    if (!getIsAnswering()) return false;
+    let result = ['未找到答案', '已找到答案'].reduce((previous, current) => {
+        return previous && $(".stem__4BNEW")[0].innerHTML.indexOf(current) === -1;
+    }, true);
 
-    if (lastQuestion === getQuestion()) return false;
+    if (!result) return false;
 
     return !tracking;
 }
 
 function getTitle() {
-    let str = window.location.href.replace("https://app.pluralsight.com/score/skill-assessment/", "");
+    let str = window.location.href.replace("https://app.pluralsight.com/skilliq/", "");
 
     str = str.split("?")[0];
 
@@ -47,8 +46,6 @@ async function getAnswer() {
 
     tracking = false;
 
-    lastQuestion = question;
-
     // 找到后向对应标签中添加展示符
     markToData(answer, possibleIndex);
 }
@@ -63,13 +60,13 @@ function request(type, question) {
 
 function markToData(answer, possibleIndex) {
     if (possibleIndex === -1) {
-        $(".stemTextWrapper__1rvD9").append("<p>未找到答案</p>");
+        $(".stem__4BNEW").append("<p>未找到答案</p>");
         return;
     }
 
     const answerHtml = delHtmlTag(answer);
 
-    let choices = $('.unansweredChoices__3vK1x > li > div');
+    let choices = $('li > button');
 
     let finalIndex = -1;
 
@@ -81,17 +78,18 @@ function markToData(answer, possibleIndex) {
         }
     }
 
-    if (finalIndex === -1 && possibleIndex === -1) {
-        $(".stemTextWrapper__1rvD9").prepend("<p>No Match</p>")
-    } else if (finalIndex !== -1) {
-        $('.unansweredChoices__3vK1x > li')[finalIndex].append("Right Answer")
+    if (finalIndex !== -1) {
+        choices[finalIndex].append("Right Answer");
+        $(".stem__4BNEW").append("<p>已找到答案</p>");
     } else if (possibleIndex !== -1) {
-        $('.unansweredChoices__3vK1x > li')[possibleIndex].append("Possible Answer")
+        choices[possibleIndex].append("Possible Answer");
+        $(".stem__4BNEW").append("<p>已找到答案</p>");
     }
 }
 
 $(() => {
     setInterval(() => {
+        console.log('执行这里了');
         if (getNeedCheck()) {
             if (checkNeedGetAnswer()) {
                 getAnswer().then();
