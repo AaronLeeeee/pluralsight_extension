@@ -16,7 +16,7 @@ function getQuestion() {
 }
 
 function checkNeedGetAnswer() {
-    let result = ['未找到答案', '已找到答案'].reduce((previous, current) => {
+    let result = ['未找到答案', '已找到答案', '已找到可能答案'].reduce((previous, current) => {
         return previous && $(".stem__4BNEW")[0].innerHTML.indexOf(current) === -1;
     }, true);
 
@@ -79,11 +79,11 @@ function markToData(answer, possibleIndex) {
     }
 
     if (finalIndex !== -1) {
-        choices[finalIndex].append("Right Answer");
-        $(".stem__4BNEW").append("<p>已找到答案</p>");
+        choices[finalIndex].append("正确答案");
+        $(".stem__4BNEW").append("<p>已找到答案: <b style='color: green'>第"+ (finalIndex + 1) +"项</b></p>");
     } else if (possibleIndex !== -1) {
-        choices[possibleIndex].append("Possible Answer");
-        $(".stem__4BNEW").append("<p>已找到答案</p>");
+        choices[possibleIndex].append("可能答案");
+        $(".stem__4BNEW").append("<p>已找到可能答案: <b style='color: goldenrod'>第"+ (possibleIndex + 1) +"个</b></p>");
     }
 }
 
