@@ -34,6 +34,14 @@
     },
     {
       "matches": [
+        "https://app.pluralsight.com/score/skill-assessment/*"
+      ],
+      "js": [
+        "js/intro/changelocation.js"
+      ]
+    },
+    {
+      "matches": [
         "https://app.pluralsight.com/course-player*",
         "https://app.pluralsight.com/player*"
       ],
