@@ -1,7 +1,8 @@
 let location_url = window.location.href;
-console.log(location_url);
 
-if (location_url.indexOf('/intro') === -1) {
+let re = /score\/skill-assessment\/[a-z|A-Z|-]*\?/;
+
+if (location_url.match(re)) {
     location_url = location_url.replace('score/skill-assessment', 'skilliq');
 
     window.location.href = location_url;
